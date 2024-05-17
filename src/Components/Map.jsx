@@ -1,5 +1,6 @@
 import react from "react"
-import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
+import { GoogleMap, useLoadScript, Marker, InfoWindow} from '@react-google-maps/api';
+import { useState } from "react"
 
 const libraries = ['places'];
 const mapContainerStyle={
@@ -14,6 +15,7 @@ const center ={
 
 const Map =()=>{
     const {isLoaded, loadError } = useLoadScript({
+        id: "google-map-script",
         googleMapsApiKey: 'AIzaSyDcEMUJb_jK28eKG7xzhm2XSkHshQgCtqk',
         libraries,
     });
@@ -30,6 +32,12 @@ const Map =()=>{
             mapContainerStyle={mapContainerStyle}
             zoom={10}
             center={center}
+            options={{
+                zoomControl: false,
+                streetViewControl: false,
+                mapTypeControl: false,
+                fullscreenControl: false,
+            }}
         >
             <Marker position={center}/>
         </GoogleMap>
