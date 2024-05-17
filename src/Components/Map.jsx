@@ -39,7 +39,9 @@ const Map =()=>{
     fetchdata();
   }, [])
 
-    return isLoaded ? (
+  if (loadError) return <div>Error loading map</div>;
+  if (!isLoaded) return <div>Loading map...</div>;
+    return  (
        <div>
         <GoogleMap
             mapContainerStyle={mapContainerStyle}
@@ -55,10 +57,6 @@ const Map =()=>{
             <Marker position={center}/>
         </GoogleMap>
        </div> 
-    ):(
-        <div>
-            Error loading map
-        </div>
     )
 }
 
