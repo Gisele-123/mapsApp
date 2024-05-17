@@ -9,8 +9,8 @@ const mapContainerStyle={
 };
 
 const center ={
-    lat: 7.2905715,
-    lng: 80.6337262,
+    lat: 2,
+    lng: 30,
 }
 
 const Map =()=>{
@@ -20,28 +20,27 @@ const Map =()=>{
         libraries,
     });
 
-    if(loadError){
-        <div>Error loading maps</div>
-    }
-    if(!loadError){
-        return <div>Loading maps</div>
-    }
-    return(
+  
+    return isLoaded ? (
        <div>
         <GoogleMap
             mapContainerStyle={mapContainerStyle}
             zoom={10}
             center={center}
             options={{
-                zoomControl: false,
-                streetViewControl: false,
-                mapTypeControl: false,
-                fullscreenControl: false,
+                zoomControl: true,
+                streetViewControl: true,
+                mapTypeControl: true,
+                fullscreenControl: true,
             }}
         >
             <Marker position={center}/>
         </GoogleMap>
        </div> 
+    ):(
+        <div>
+            Error loading map
+        </div>
     )
 }
 
