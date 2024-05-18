@@ -3,7 +3,7 @@ import { GoogleMap, useLoadScript, Marker, InfoWindow} from '@react-google-maps/
 import { useState } from "react"
 import db from "../Firebase_setup/firebase"
 import { getDatabase, ref, onValue } from "firebase/database";
-
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 const libraries = ['places'];
 const mapContainerStyle={
@@ -15,6 +15,13 @@ const center ={
     lat: -1.9489196023037583,
     lng:  30.092607828989397,
 }
+
+const LocationPin = ({ text }) => (
+    <div className="pin">
+      <Icon icon="mdi:location" className="pin-icon" />
+      <p className="pin-text">{text}</p>
+    </div>
+  );
 
 const Map =()=>{
     const db = getDatabase();
@@ -43,19 +50,31 @@ const Map =()=>{
   if (!isLoaded) return <div>Loading map...</div>;
     return  (
        <div>
+         <h2 className="map-h2">Come Visit Us At Our Kigali</h2>
         <GoogleMap
-            mapContainerStyle={mapContainerStyle}
-            zoom={10}
-            center={center}
-            options={{
-                zoomControl: true,
-                streetViewControl: true,
-                mapTypeControl: true,
-                fullscreenControl: true,
-            }}
-        >
-            <Marker position={center}/>
-        </GoogleMap>
+    mapContainerStyle={mapContainerStyle}
+    zoom={10}
+    center={center}
+    options={{
+        zoomControl: true,
+        streetViewControl: true,
+        mapTypeControl: true,
+        fullscreenControl: true,
+    }}
+    bootstrapURLKeys={{ key: 'AIzaSyDcEMUJb_jK28eKG7xzhm2XSkHshQgCtqk' }}
+>
+    {currentLocation ? (
+        currentLocation.map((loc, index) => (
+            <Marker
+                key={index}
+                position={{ lat: loc.lat, lng: loc.lng }}
+            >
+                <LocationPin text={loc.address} />
+            </Marker>
+        ))
+    ) : null}
+</GoogleMap>
+
        </div> 
     )
 }
