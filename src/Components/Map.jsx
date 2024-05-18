@@ -4,7 +4,6 @@ import { useState } from "react"
 import db from "../Firebase_setup/firebase"
 import { getDatabase, ref, onValue } from "firebase/database";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { config, configDotenv } from "dotenv";
 
 const libraries = ['places'];
 const mapContainerStyle={
