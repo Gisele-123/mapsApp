@@ -4,6 +4,7 @@ import { useState } from "react"
 import db from "../Firebase_setup/firebase"
 import { getDatabase, ref, onValue } from "firebase/database";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { config, configDotenv } from "dotenv";
 
 const libraries = ['places'];
 const mapContainerStyle={
@@ -27,7 +28,7 @@ const Map =()=>{
     const db = getDatabase();
     const {isLoaded, loadError } = useLoadScript({
         id: "google-map-script",
-        googleMapsApiKey: 'AIzaSyDcEMUJb_jK28eKG7xzhm2XSkHshQgCtqk',
+        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
         libraries,
     });
 
@@ -61,7 +62,7 @@ const Map =()=>{
         mapTypeControl: true,
         fullscreenControl: true,
     }}
-    bootstrapURLKeys={{ key: 'AIzaSyDcEMUJb_jK28eKG7xzhm2XSkHshQgCtqk' }}
+    // bootstrapURLKeys={{ key: 'AIzaSyDcEMUJb_jK28eKG7xzhm2XSkHshQgCtqk' }}
 >
     {currentLocation ? (
         currentLocation.map((loc, index) => (
